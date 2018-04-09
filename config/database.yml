@@ -1,0 +1,5 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: todo_challenge_development
+  pool: 5# SQLite version 3.x
