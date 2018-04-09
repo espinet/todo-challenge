@@ -1,4 +1,4 @@
 class TaskCategory < ApplicationRecord
-  belongs_to :task, dependent: :destroy
-  belongs_to :category, dependent: :destroy
+  belongs_to :task
+  belongs_to :category
 end

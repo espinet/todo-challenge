@@ -11,13 +11,16 @@ Types::TaskType = GraphQL::ObjectType.define do
   field :categories, types[types.String] do
     resolve -> (task, _, _) do
       AssociationLoader.for(Task, :categories).load(task).then do |categories|
-        categories.map(&:name)
+        categories.map(&:name).uniq
       end
     end
   end
   field :subtasks, types[Types::TaskType] do
-    resolve -> (task, _, _) do
+    resolve -> (task, args, ctx) do
       AssociationLoader.for(Task, :subtasks).load(task).then { |tasks| tasks }
     end
+  end
+  field :parentId, types.Int do
+    resolve -> (task, args, ctx) { task.parent_id }
   end
 end
